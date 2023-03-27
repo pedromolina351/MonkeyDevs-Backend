@@ -5,8 +5,14 @@ export const UsuarioSchema = new Schema({
     nombre: String,
     apellido: String,
     fechaNacimiento: Date,
-    usuario: String,
-    correo: String,
+    usuario: {
+      type: String,
+      unique: true
+    },
+    correo: {
+      type: String,
+      unique: true
+    },
     password: String,
     plan: Number,
     createdAt: {
@@ -26,6 +32,10 @@ UsuarioSchema.pre('save', async function (next) {
     } catch (error) {
       return next(error);
     }
+  });
+
+  UsuarioSchema.pre('save', async function (next) {
+    
   });
 
 
