@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsuarioModule } from './usuario/usuario.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
-  imports: [UsuarioModule, , MongooseModule.forRoot('mongodb+srv://user:cQrQOaOAdhjDsdth@monkeydevs.yw9g6zp.mongodb.net/test')],
+  imports: [UsuarioModule, ConfigModule.forRoot({envFilePath: '.env', isGlobal: true}) , MongooseModule.forRoot(process.env.DB_URI)],
   controllers: [AppController],
   providers: [AppService],
 })

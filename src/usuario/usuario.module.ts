@@ -2,15 +2,22 @@ import { Module } from '@nestjs/common';
 import { UsuarioController } from './usuario.controller';
 import { UsuarioService } from './usuario.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsuarioSchema } from './schemas/usuario.schema'
+import { UserSchema } from './schemas/usuario.schema'
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './jwt.constants';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      {name: 'Usuario', schema: UsuarioSchema}
-    ])
+      {name: 'Usuario', schema: UserSchema}
+    ]),
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '20h' },
+    })
   ],
   controllers: [UsuarioController],
-  providers: [UsuarioService],
+  providers: [UsuarioService, JwtStrategy],
 })
 export class UsuarioModule {}

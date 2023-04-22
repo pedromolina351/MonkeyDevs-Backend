@@ -1,15 +1,15 @@
 //Definir objeto de typeScript para saber que atributo validar
 import { IsNotEmpty } from "class-validator"; 
-export class CrearUsuarioDTO {
+import { AuthDto } from "./auth.dto";
+import { PartialType } from "@nestjs/swagger";
+
+export class CrearUsuarioDTO extends PartialType(AuthDto){
     @IsNotEmpty()
     readonly nombre: string;
     readonly apellido: string;
     @IsNotEmpty()
     readonly usuario: string;
-    @IsNotEmpty()
-    readonly correo: string;
-    @IsNotEmpty()
-    readonly password: string;
+    
     @IsNotEmpty()
     readonly plan: number; 
 }
