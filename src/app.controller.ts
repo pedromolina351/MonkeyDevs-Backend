@@ -18,12 +18,12 @@ export class AppController {
     return HttpStatus.OK;
   }
 
-  @Get('/facebook/redirect')
-  @UseGuards(AuthGuard('facebook'))
-  @Redirect('',302)
-  async facebookLoginRedirect(@Req() req: Request): Promise<any> {
-
-  }
+  // @Get('/facebook/redirect')
+  // @UseGuards(AuthGuard('facebook'))
+  // @Redirect('',302)
+  // async facebookLoginRedirect(@Req() req: Request): Promise<any> {
+    
+  // }
 
 
 

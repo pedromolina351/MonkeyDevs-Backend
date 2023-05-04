@@ -1,70 +1,33 @@
-
-
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { Document } from 'mongoose';
+import { Proyecto } from 'src/proyecto/schemas/proyecto.schema';
 
 @Schema()
-export class Usuario {
-   @Prop()
-   nombre: String;
+export class Usuario extends Document {
+  @Prop()
+  nombre: string;
 
-   @Prop()
-   apellido: String
+  @Prop()
+  apellido: string;
 
-   @Prop()
-   fechaNacimiento: Date
+  @Prop()
+  fechaNacimiento: Date;
 
-   @Prop({unique:true})
-   usuario: String;
+  @Prop({ unique: true })
+  usuario: string;
 
-   @Prop({unique:true})
-   correo: String;
+  @Prop({ unique: true })
+  correo: string;
 
-   @Prop()
-   password: String;
+  @Prop()
+  password: string;
 
-   @Prop()
-   plan: number;
+  @Prop()
+  plan: number;
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Proyecto' }] })
+  proyectos: Proyecto[];
 
 }
 
 export const UserSchema = SchemaFactory.createForClass(Usuario);
-
-
-// import * as bcrypt from 'bcrypt';
-
-// export const UsuarioSchema = new Schema({
-//     nombre: String,
-//     apellido: String,
-//     fechaNacimiento: Date,
-//     usuario: {
-//       type: String,
-//       unique: true
-//     },
-//     correo: {
-//       type: String,
-//       unique: true
-//     },
-//     password: String,
-//     plan: Number,
-//     createdAt: {
-//         type: Date,
-//         default: Date.now
-//     }
-// });
-
-// UsuarioSchema.pre('save', async function (next) {
-//     try {
-//       if (!this.isModified('password')) {
-//         return next();
-//       }
-//       const hashedPassword = await bcrypt.hash(this.password, 10);
-//       this.password = hashedPassword;
-//       return next();
-//     } catch (error) {
-//       return next(error);
-//     }
-//   });
-
-
-
