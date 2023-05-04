@@ -20,7 +20,8 @@ export class UsuarioService {
         userObject = { ...userObject, password: plainToHash }
         const user = await this.usuarioModel.findOne({ usuario: userObject.usuario });
         const correo = await this.usuarioModel.findOne({ correo: userObject.correo });
-        if (user || correo) throw new HttpException('USUARIO_O_CORREO_DUPLICADOS', 404);
+        if (user) throw new HttpException('USUARIO_DUPLICADO', 404);
+        if (correo) throw new HttpException('CORREO_DUPLICADO', 404);
         return this.usuarioModel.create(userObject)
     }
 
