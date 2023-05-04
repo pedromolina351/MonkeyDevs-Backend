@@ -41,7 +41,7 @@ export class UsuarioController {
     // }
 
     /*Obtener los usuarios, para esto utilizamos el servicio getUsuarios*/
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     @Get('/')
     async obtenerUsuarios(@Res() res) {
         const usuarios = await this.usuarioService.getUsuarios();

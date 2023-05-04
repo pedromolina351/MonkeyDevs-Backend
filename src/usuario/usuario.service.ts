@@ -35,7 +35,7 @@ export class UsuarioService {
 
         //verificar que el el correo y la contraseña coniciden
         const checkPassword = await compare(password, findUser.password);
-        if (!checkPassword) throw new HttpException('PASSWORD_INCORRECT', 403);
+        if (!checkPassword) throw new HttpException('CREDENCIALES_INCORRECTAS', 403);
 
 
         const payload = { id: findUser._id, nombre: findUser.nombre }
