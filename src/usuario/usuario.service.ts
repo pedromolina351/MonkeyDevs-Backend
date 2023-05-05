@@ -39,7 +39,7 @@ export class UsuarioService {
         if (!checkPassword) throw new HttpException('CREDENCIALES_INCORRECTAS', 403);
 
 
-        const payload = { id: findUser._id, nombre: findUser.nombre }
+        const payload = { id: findUser._id, nombre: findUser.nombre, apellido: findUser.apellido }
         const token = this.jwtService.sign(payload);
 
         //Si la contraseña es correcta:
