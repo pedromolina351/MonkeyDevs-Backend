@@ -11,15 +11,12 @@ export class ProyectoDto {
   descripcion: string;
 
   @IsString()
-  @IsNotEmpty()
   archivoHTML: string;
 
   @IsString()
-  @IsNotEmpty()
   archivoJS: string;
 
   @IsString()
-  @IsNotEmpty()
   archivoCSS: string;
 
   @IsNotEmpty()
