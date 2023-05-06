@@ -21,7 +21,7 @@ export class ProyectoService {
 
     const maxProyectos = usuario.plan === 1 ? 3 : usuario.plan === 2 ? 5 : Infinity;
     if (usuario.proyectos.length >= maxProyectos) {
-      throw new BadRequestException(`El usuario ya tiene el número máximo de proyectos permitidos para su plan`);
+      throw new BadRequestException(`LIMIT`);
     }
 
     const createdProyecto = new this.proyectoModel(proyectoDto);
@@ -39,5 +39,28 @@ export class ProyectoService {
   async updateProyecto(id: any, proyectoDto: ProyectoDto): Promise<Proyecto> {
     const proyectoActualizado = await this.proyectoModel.findByIdAndUpdate(id, proyectoDto, { new: true });
     return proyectoActualizado;
+  }
+
+  //Eliminar un proyecto y su referencia en usuarios
+  async eliminarProyecto(proyectoId: string): Promise<Proyecto> {
+    const proyecto = await this.proyectoModel.findByIdAndDelete(proyectoId).exec();
+
+    if (!proyecto) {
+      throw new NotFoundException(`Proyecto con id ${proyectoId} no encontrado`);
+    }
+
+    const usuario = await this.usuarioModel
+      .findOneAndUpdate(
+        { _id: proyecto.usuario },
+        { $pull: { proyectos: proyectoId } },
+        { new: true }
+      )
+      .exec();
+
+    if (!usuario) {
+      throw new NotFoundException(`Usuario con id ${proyecto.usuario} no encontrado`);
+    }
+
+    return proyecto;
   }
 }

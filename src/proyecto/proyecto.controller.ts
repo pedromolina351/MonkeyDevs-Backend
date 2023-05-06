@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, NotFoundException, Param, Post, Put, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, NotFoundException, Param, Post, Put, Query, Res } from '@nestjs/common';
 import { ProyectoService } from './proyecto.service';
 import { ProyectoDto } from './dto/proyecto.dto';
 import { Types } from 'mongoose';
@@ -27,5 +27,12 @@ export class ProyectoController {
         const proyecto = await this.proyectoService.updateProyecto(id, proyectoDto);
         if (!Types.ObjectId.isValid(id) || !proyecto) throw new NotFoundException('Id invalido');
         return res.status(HttpStatus.OK).json(proyecto);
+    }
+
+    //Eliminar un proyecto
+    @Delete(':idProyecto/eliminar')
+    async eliminarProyecto(@Param('idProyecto') idProyecto: string ): Promise<Proyecto>{
+        const proyecto = await this.proyectoService.eliminarProyecto(idProyecto);
+        return proyecto;
     }
 }
