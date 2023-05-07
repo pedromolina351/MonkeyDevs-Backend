@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { Cooperativo } from 'src/cooperativo/schemas/cooperativo.schema';
 import { Proyecto } from 'src/proyecto/schemas/proyecto.schema';
 
 @Schema()
@@ -27,6 +28,9 @@ export class Usuario extends Document {
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Proyecto' }] })
   proyectos: Proyecto[];
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Cooperativo' }] })
+  cooperativo: Cooperativo[];
 
 }
 
